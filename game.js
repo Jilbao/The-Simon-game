@@ -14,16 +14,24 @@ function nextSequence (){
 // Saving Pattern
 gamePattern.push(nextSequence());
 
-// Flash Animation
+// Flash Animation for sequence
 $("#"+nextSequence()).animate({opacity: 0}, 150).animate({opacity: 100}, 150)
 
 // Click Handler
 $(".btn").on("click", (event)=>{
     var userChoosenColor = event.target.id;
     playSound(userChoosenColor);
-    userClickedPattern.push(userChoosenColor);
-    
+    animatePress(userChoosenColor);
+    userClickedPattern.push(userChoosenColor);   
 });
+
+// Flash Animation for Clicks
+function animatePress(currentColor){
+    $("#"+ currentColor).addClass("pressed");
+    setTimeout(() => {
+        $("#"+ currentColor).removeClass("pressed");
+    }, 100);
+};
 
 //Play Sound Function
 function playSound(name){
