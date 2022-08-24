@@ -3,6 +3,11 @@ var buttonColors = ["red","blue","green","yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
 var level = 0;
+var count = 0;
+
+// Disabling buttons before game starts
+$(".btn").css("pointer-events","none");
+
 // Random Generated Color
 function nextSequence (){
     var randomNumber = Math.floor((Math.random()*4));
@@ -18,6 +23,15 @@ function nextSequence (){
     // Level  
     level++;
     $("h1").html("Level "+level);
+};
+// Start-Over
+function startOver(){
+    level = 0;
+    gamePattern = [];
+    count = 0;
+    // Disabling buttons after game ends.
+    $(".btn").css("pointer-events","none");
+
 };
 // Answer Control
 function checkAnswer (currentLevel){
@@ -40,6 +54,7 @@ function checkAnswer (currentLevel){
             $("body").removeClass("game-over");
         }, 200);
         $("h1").html("Game Over, Press Any Key to Restart");
+        startOver();
     }
     
     
@@ -70,11 +85,13 @@ function playSound(name){
 };
 
 // Any Button to Start Game
-var count = 0;
+
 $(document).on("keypress", (event)=>{   
     if (count === 0){
         nextSequence();
         count++;
+        // Making clicks possible
+        $(".btn").css("pointer-events","auto");
     }
     
 });
