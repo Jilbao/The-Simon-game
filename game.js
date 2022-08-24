@@ -22,10 +22,27 @@ function nextSequence (){
 // Answer Control
 function checkAnswer (currentLevel){
     if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
-        console.log("success");
+        
+        // Checking End of Sequence and Resetting answer array
+        if (userClickedPattern.length === gamePattern.length){
+            setTimeout(() => {
+                nextSequence();
+                userClickedPattern = [];
+            }, 1000);
+        }
     }else{
-        console.log("wrong")
+        // Game Over
+        playSound("wrong");
+
+        // Adding game over background and title
+        $("body").addClass("game-over");
+        setTimeout(() => {
+            $("body").removeClass("game-over");
+        }, 200);
+        $("h1").html("Game Over, Press Any Key to Restart");
     }
+    
+    
     
 };
 
@@ -63,4 +80,4 @@ $(document).on("keypress", (event)=>{
 });
 
 
-// if game over count = 0
+
